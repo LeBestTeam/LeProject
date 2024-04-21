@@ -1,8 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from PIL import Image
 
 
-class Fractal:
+class Fractal:  # pragma: no cover
     """
     Interface to use all fractals in app using same function
 
@@ -26,7 +27,7 @@ class Fractal:
 
 class LFractal(Fractal):
     """
-    Lsystem implementation of fractals
+    Lsystem implementation of fractals (see compgraph Lab3)
 
     Now there is no Animation and only radians
     """
@@ -133,7 +134,7 @@ class AffineFractal(Fractal):
 
     Now there is no Animation and no cosinus and sinus
     """
-    def __init__(self, list_of_lists_of_parameter: list, size_of_fractal: int = 10**4):
+    def __init__(self, list_of_lists_of_parameter: list, size_of_fractal: int = 10**4, *args):
         """
         Initiates affine fractal with given parameters but before checks if parameters are correct
 
@@ -141,6 +142,8 @@ class AffineFractal(Fractal):
         list_of_lists_of_parameter: list with lists in it (For a,b,c,d,e,f and, if needed, p)
         size_of_fractal: int (How many dots in fractal)
         """
+        if args != ():
+            raise ValueError(f"Wrong number of arguments, {args} excess")
         self.list_to_check = [list, int]
         self.check_args(list_of_lists_of_parameter, size_of_fractal)
         self.size = size_of_fractal
@@ -219,27 +222,33 @@ class MatrixFractal(Fractal):
     """
     Build fractals using matrix (see compgraph 2024-02-27)
     """
-    def __init__(self):
-        raise NotImplementedError()
+    def __init__(self, patern: list, max_iterations: int, *args):
+        if args != ():
+            raise ValueError(f"Wrong number of arguments, {args} excess")
+        self.patern = np.matrix(patern)
+        self.max_iterations = max_iterations
 
     def check_args(self):
         raise NotImplementedError()
 
-    def build(self):
-        raise NotImplementedError()
+    def build(self, **kwargs):
+        self.generate()
+        self.draw(**kwargs)
 
     def calculate(self):
         raise NotImplementedError()
 
     def generate(self):
-        raise NotImplementedError()
+        self.matrix_fractal = 1
+        for iteration in range(self.max_iterations):
+            pass  # do somethings
 
-    def draw(self):
-        raise NotImplementedError()
+    def draw(self, **kwargs):
+        pass  # do somethings
+        # Image.fromarray(self.S).show()
 
 
 if __name__ == '__main__':
-    pass
     # axiom = "F+F+X+F"
     # rules = {"F": "FF+X++F+F", "X": "F-X++F-F"}
     # max_iter = 3
@@ -248,11 +257,12 @@ if __name__ == '__main__':
 
     # L = LFractal(axiom, rules, max_iter, fi, dfi).build()
 
-#     af = AffineFractal([
-#         [1.0, -0.1],
-#         [0.2, -1.0],
-#         [-0.3, 0.4],
-#         [0.7, 0.2],
-#         [0.5, -0.4],
-#         [-0.2, 0.5]
-# ]).build()
+    #     af = AffineFractal([
+    #         [1.0, -0.1],
+    #         [0.2, -1.0],
+    #         [-0.3, 0.4],
+    #         [0.7, 0.2],
+    #         [0.5, -0.4],
+    #         [-0.2, 0.5]
+    # ]).build()
+    mf = MatrixFractal([[1, 1, 1], [1, 0, 1], [1, 1, 1]], 1).build()
