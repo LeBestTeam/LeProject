@@ -33,4 +33,4 @@ jobs:
           flake8 ./code --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
       - name: "Running unit test..."
-        run: python ./code/test_*.py
+        run: python code/test_*.py
