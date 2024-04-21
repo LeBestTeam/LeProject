@@ -1,9 +1,6 @@
 import unittest
 import numpy as np
 
-import io
-import contextlib
-
 from main import App
 
 
@@ -15,5 +12,5 @@ class TestApp(unittest.TestCase):
         App().create_fractal("lfractal", "F+F+F+F", {"F": "F+F-F-F+F"}, 2, 0, np.pi/2, show=False)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # pragma: no cover
     unittest.main()
