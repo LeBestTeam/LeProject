@@ -1,0 +1,24 @@
+name: coverage
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Test with pytest
+        run: |
+            pytest --cov-report "xml:coverage.xml" --cov-report=term-missing  --cov=.
+
+      - name: Create Coverage
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: orgoro/coverage@v3.1
+        with:
+            coverageFile: coverage.xml
+            thresholdAll: 0.99
+            token: ${{ secrets.GITHUB_TOKEN }}
