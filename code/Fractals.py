@@ -66,12 +66,12 @@ class LFractal(Fractal):
             if type(args[argument_index]) is not self.list_to_check[argument_index]:
                 raise ValueError(f"Wrong argument {args[argument_index]}, which is {type(args[argument_index])} type, expected {self.list_to_check[argument_index]} type")
 
-    def build(self):
+    def build(self, **kwargs):
         """
         Builds (generates and draws) Lsystem fractal
         """
         self.generate()
-        self.draw()
+        self.draw(**kwargs)
 
     def calculate(self):
         """
@@ -112,7 +112,7 @@ class LFractal(Fractal):
                     new_axiom += self.axiom[word_place]
             self.axiom = new_axiom
 
-    def draw(self):
+    def draw(self, **kwargs):
         """
         Plots Lsystem fractal
         """
@@ -120,7 +120,11 @@ class LFractal(Fractal):
         x, y = self.calculate()
         ax.plot(x, y)
 
-        plt.show()
+        if "show" not in kwargs:
+            plt.show()
+        else:
+            if kwargs["show"]:
+                plt.show()
 
 
 class AffineFractal(Fractal):
@@ -176,12 +180,12 @@ class AffineFractal(Fractal):
                 raise ValueError(f"Wrong size of list {args[0]} whose len is: {len(args[0])}, expected 6 or 7")
             previous_parameter = parameter
 
-    def build(self):
+    def build(self, **kwargs):
         """
         Builds (generates and draws) affine fractal
         """
         self.generate()
-        self.draw()
+        self.draw(**kwargs)
 
     def generate(self):
         """
@@ -199,12 +203,16 @@ class AffineFractal(Fractal):
             self.xy_array[i+1] = [xk, yk]
             i += 1
 
-    def draw(self):
+    def draw(self, **kwargs):
         """
         Plots affine fractal
         """
         plt.scatter(self.xy_array[:, 0], self.xy_array[:, 1], s=1)
-        plt.show()
+        if "show" not in kwargs:
+            plt.show()
+        else:
+            if kwargs["show"]:
+                plt.show()
 
 
 class MatrixFractal(Fractal):
