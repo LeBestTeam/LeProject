@@ -28,7 +28,11 @@ class Fractal:
 
 
 class LFractal(Fractal):
-    """Lsystem implementation of fractals"""
+    """
+    Lsystem implementation of fractals
+
+    Now there is no Animation and only radians
+    """
     def __init__(self, axiom: str, rules: dict, max_iterations: int, fi: float, dfi: float, *args):
         """
         Initiates Lsystem fractal with given parameters but before checks if parameters are correct
@@ -37,8 +41,8 @@ class LFractal(Fractal):
         axiom: string (starting L-axiom)
         rules: dict (rules for how to change each letter (not specific symbol) in iteration)
         max_iterations: int (How many iterations)
-        fi: float (starting angular)
-        dfi: float (angular velocity)
+        fi: float (starting angular) (now only radians)
+        dfi: float (angular velocity) (now only radians)
         """
         if args != ():
             raise ValueError(f"Wrong number of arguments, {args} excess")
@@ -47,7 +51,7 @@ class LFractal(Fractal):
             try:
                 fi = float(fi)
             except ValueError:
-                raise ValueError(f"Wrong fi, which is {type(fi)} type, excepted int or float type")
+                raise ValueError(f"Wrong fi, which is {type(fi)} type, expected int or float type")
         self.check_args(axiom, rules, max_iterations, fi, dfi)
         self.axiom = axiom
         self.rules = rules
@@ -63,7 +67,7 @@ class LFractal(Fractal):
         """
         for argument_index in range(len(args)):
             if type(args[argument_index]) is not self.list_to_check[argument_index]:
-                raise ValueError(f"Wrong argument {args[argument_index]}, which is {type(args[argument_index])} type, excepted {self.list_to_check[argument_index]} type")
+                raise ValueError(f"Wrong argument {args[argument_index]}, which is {type(args[argument_index])} type, expected {self.list_to_check[argument_index]} type")
 
     def build(self):
         """
@@ -122,12 +126,28 @@ class LFractal(Fractal):
 class AffineFractal(Fractal):
     """
     Build fractals using affine transformation (see compgraph Lab4)
-    """
-    def __init__(self):
-        raise NotImplementedError()
 
-    def check_args(self):
-        raise NotImplementedError()
+    Now there is no Animation
+    """
+    def __init__(self, list_of_lists_of_parameter: list, size_of_fractal: int):
+        self.list_to_check = [list, int]
+        self.check_args(list_of_lists_of_parameter, size_of_fractal)
+        self.size = size_of_fractal
+        self.xy_array = np.array(
+            [[0.0, 0.0]]*self.size
+            )
+
+    def check_args(self, *args):
+        for argument_index in range(len(args)):
+            if type(args[argument_index]) is not self.list_to_check[argument_index]:
+                raise ValueError(f"Wrong argument {args[argument_index]}, which is {type(args[argument_index])} type, expected {self.list_to_check[argument_index]} type")
+
+        previous_parameter = None
+        for parameter in args[0]:
+            if previous_parameter is not None:
+                if len(previous_parameter) != len(parameter):
+                    raise ValueError(f"Wrong length of parameter {parameter} in row {args[0].index(parameter)}, expected {len(previous_parameter)}")
+            previous_parameter = parameter
 
     def build(self):
         raise NotImplementedError()
@@ -166,10 +186,15 @@ class MatrixFractal(Fractal):
 
 
 if __name__ == '__main__':
-    axiom = "F+F+X+F"
-    rules = {"F": "FF+X++F+F", "X": "F-X++F-F"}
-    max_iter = 3
-    fi = 0
-    dfi = np.pi/2
+    # axiom = "F+F+X+F"
+    # rules = {"F": "FF+X++F+F", "X": "F-X++F-F"}
+    # max_iter = 3
+    # fi = 0
+    # dfi = np.pi/2
 
-    L = LFractal(axiom, rules, max_iter, fi, dfi).build()
+    # L = LFractal(axiom, rules, max_iter, fi, dfi).build()
+
+    af = AffineFractal([
+        [0.0, 0.0],
+        [0.0, 1.0]
+], 10)
