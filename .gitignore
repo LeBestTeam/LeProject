@@ -1,5 +1,6 @@
 # Venv
 leproject
+.idea
 
 # Trash
 *__pycache__*
