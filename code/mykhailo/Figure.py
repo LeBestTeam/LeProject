@@ -8,9 +8,11 @@ class Figure:
 
 class FigureBuilder:
     def __init__(self, *args):
-        pass
+        self.check_succes = None
+        # self.argument = argument
+        self.__check_args()
 
-    def check_args(self):
+    def __check_args(self):
         """
         default functionality example
         """
@@ -35,6 +37,7 @@ class FigureBuilder:
             return 0
         if self.check_succes:
             figure = Figure()
+
             def generate_points():
                 return [["x"], ["y"]]
 
