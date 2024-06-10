@@ -1,14 +1,13 @@
 class Figure:
     def __init__(self, *args):
-        self.check_args(args)
-    def check_args(self):
-        print("check args F")
-    def generate_points(self):
+        pass
+
+    def generate_points(self, iteration: int = 1):
         pass
 
 
 class LsystemBuilder(Figure):
-    def __init__(self, axiom: str, rules: dict, max_iterations: int, fi: float, dfi: float, *args):
+    def __init__(self, axiom: str, rules: dict, fi: float, dfi: float, *args):
         super.__init__(self, *args)
         self.axiom = axiom
         self.rules = rules
@@ -17,9 +16,16 @@ class LsystemBuilder(Figure):
         self.dfi = dfi
 
     def check_args(self):
-        print("check args B")
+        pass
+        # перевірити аргументи, якщо все ок дозволити будування
     
-    def generate_points(self):
+    def build(self):
+        figure = Figure()
+        def function(*args):
+            pass
+        figure.generate_points = function
+        return figure
+        # побудувати фігуру
         
 
 class Window:
