@@ -75,14 +75,14 @@ class LFractalBuilder(FigureBuilder):
             def generate_points(iteration):
                 # init
 
-                final_l_string = []
+                final_l_string = self.__axiom
                 for iter in range(iteration):
                     new_axiom = ''
-                    for word_place in range(len(self.__axiom)):
-                        if self.__axiom[word_place] in self.__rules.keys():
-                            new_axiom += self.__rules[self.__axiom[word_place]]
+                    for word_place in range(len(final_l_string)):
+                        if final_l_string[word_place] in self.__rules.keys():
+                            new_axiom += self.__rules[final_l_string[word_place]]
                         else:
-                            new_axiom += self.__axiom[word_place]
+                            new_axiom += final_l_string[word_place]
                     final_l_string = new_axiom
 
                 N = len(final_l_string)

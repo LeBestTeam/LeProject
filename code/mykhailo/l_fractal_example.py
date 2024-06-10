@@ -1,7 +1,8 @@
 from L_Fractal import *
 import matplotlib.pyplot as plt
+import math
 
-fractal_board_builder = LFractalBuilder("F+F+F+F",{"F": "FF+F+F+F+FF"}, 0, 90)
+fractal_board_builder = LFractalBuilder("F+F+F+F",{"F": "FF+F+F+F+FF"}, 0, math.pi/2)
 fractal_board = fractal_board_builder.get_figure()
 
 
@@ -15,10 +16,10 @@ def draw(input_value, **kwargs): # from /Window.py
         plt.plot(x, y)
     else:
         if "markersize" in kwargs:
-            plt.plot(x, y, markersize=kwargs["markersize"])
+            plt.plot(x, y, marker='o', linestyle='', markersize=kwargs["markersize"])
         else:
-            plt.plot(x, y, markersize=0.6)
+            plt.plot(x, y, marker='o', linestyle='', markersize=0.6)
 
     plt.show()
 
-draw(fractal_board.generate_points(2))
+draw(fractal_board.generate_points(5), is_edge =True)
