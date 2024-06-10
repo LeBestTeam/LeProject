@@ -2,7 +2,7 @@ class Figure:
     def __init__(self):
         pass
 
-    def generate_points(self):
+    def generate_points(self, iteration=0):
         pass
 
 
@@ -38,7 +38,13 @@ class FigureBuilder:
         if self.check_succes:
             figure = Figure()
 
-            def generate_points():
+            # figure.__value = value -- transmit values from builder to Figure
+
+            def generate_points(self, iteration=0):
+                for i in range(iteration):
+                    pass
+                    # advance to the iteration 'iteration'. If 0 -- return starting condition. If not fratal -- just ignore this arg.
+                # create points
                 return [["x"], ["y"]]
 
             figure.generate_points = generate_points
