@@ -206,6 +206,7 @@ class AffineFractal(Fractal):
             self.xy_array[i+1] = [xk, yk]
             i += 1
 
+
     def draw(self, **kwargs):
         """
         Plots affine fractal

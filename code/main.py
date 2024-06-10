@@ -27,7 +27,7 @@ class App:
 
 if __name__ == "__main__": # pragma: no cover
     app = App()
-    app.create_fractal("lfractal", "F+F+F+F", {"F": "F+F-F-F+F"}, 5, 0, np.pi/2)
+    # app.create_fractal("lfractal", "F+F+F+F", {"F": "F+F-F-F+F"}, 5, 0, np.pi/2)
     app.create_fractal("afractal", [
         [1.0, -0.1],
         [0.2, -1.0],

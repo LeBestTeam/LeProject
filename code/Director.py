@@ -4,5 +4,5 @@ from Window import Window
 
 
 class FigureDirector:
-    def build(self, figure: Figure, *args, **kwargs):
-        Window().draw(FigureBuilder().build(figure, *args, **kwargs))
+    def build(self, figure: Figure, **kwargs):
+        Window().draw(FigureBuilder().build(figure), **kwargs)
