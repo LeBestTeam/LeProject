@@ -8,7 +8,7 @@ class Figure:
 
 class FigureBuilder:
     def __init__(self, *args):
-        self.check_succes = None
+        self.__check_succes = None
         # self.argument = argument
         self.__check_args()
 
@@ -31,11 +31,11 @@ class FigureBuilder:
         default functionality example
         """
 
-        if self.check_succes is None:
+        if self.__check_succes is None:
             import warnings
             warnings.warn("Check has not been completed yet")
             return 0
-        if self.check_succes:
+        if self.__check_succes:
             figure = Figure()
 
             # figure.__value = value -- transmit values from builder to Figure

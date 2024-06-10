@@ -4,7 +4,7 @@ import numpy as np
 
 
 class LFractalBuilder(FigureBuilder):
-    def __init__(self, axiom: str, rules: dict, fi: float, dfi: float, f_step=2, *args):
+    def __init__(self, axiom: str, rules: dict, starting_fi: float, dfi: float, f_step=2, *args):
         """
         Initiates Lsystem fractal with given parameters but before checks if parameters are correct
 
@@ -20,7 +20,7 @@ class LFractalBuilder(FigureBuilder):
 
         self.__axiom = axiom
         self.__rules = rules
-        self.__fi = fi
+        self.__fi = starting_fi
         self.__dfi = dfi
         self.__f_step = f_step
 
@@ -37,9 +37,9 @@ class LFractalBuilder(FigureBuilder):
         arg_types = [[str], [dict], [float, int], [float, int], [float, int]]
         args = [self.__axiom, self.__rules, self.__fi, self.__dfi, self.__f_step]
         for i in range(len(args)):
-            if not args[i] in arg_types[i]:
+            if not type(args[i]) in arg_types[i]:
                 check_success = False
-                warnings.warn(f"WARNING: wrong type of {args[i]=}. Must be one of these: {arg_types[i]}")
+                warnings.warn(f"WARNING: wrong type of arg #{i}. Must be one of these: {arg_types[i]}")
 
         # check values
         if self.__axiom == "":
@@ -60,11 +60,11 @@ class LFractalBuilder(FigureBuilder):
         default functionality example
         """
 
-        if self.check_succes is None:
+        if self.__check_succes is None:
             import warnings
             warnings.warn("Check has not been completed yet")
             return 0
-        if self.check_succes:
+        if self.__check_succes:
             figure = Figure()
             figure.__axiom = self.__axiom  # add copy.deepcopy?
             figure.__rules = self.__rules
@@ -72,7 +72,7 @@ class LFractalBuilder(FigureBuilder):
             figure.__dfi = self.__dfi
             figure.__f_step = self.__f_step
 
-            def generate_points(self, iteration):
+            def generate_points(iteration):
                 # init
 
                 final_l_string = []
