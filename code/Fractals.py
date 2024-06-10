@@ -249,13 +249,13 @@ class MatrixFractal(Fractal):
 
 
 if __name__ == '__main__':
-    # axiom = "F+F+X+F"
-    # rules = {"F": "FF+X++F+F", "X": "F-X++F-F"}
-    # max_iter = 3
-    # fi = 0
-    # dfi = np.pi/2
+    axiom = "F+F+X+F"
+    rules = {"F": "FF+X++F+F", "X": "F-X++F-F"}
+    max_iter = 3
+    fi = 0
+    dfi = np.pi/2
 
-    # L = LFractal(axiom, rules, max_iter, fi, dfi).build()
+    L = LFractal(axiom, rules, max_iter, fi, dfi).build()
 
     #     af = AffineFractal([
     #         [1.0, -0.1],
@@ -265,4 +265,4 @@ if __name__ == '__main__':
     #         [0.5, -0.4],
     #         [-0.2, 0.5]
     # ]).build()
-    mf = MatrixFractal([[1, 1, 1], [1, 0, 1], [1, 1, 1]], 1).build()
+    # mf = MatrixFractal([[1, 1, 1], [1, 0, 1], [1, 1, 1]], 1).build()
