@@ -1,4 +1,4 @@
-import Figure
+from Figures import LsystemFractal, AffineFractal
 from Director import FigureDirector
 
 import numpy as np
@@ -6,7 +6,7 @@ import numpy as np
 
 class App:
     def __init__(self):
-        self.fractals_class = {"Lfractal": Figure.LsystemFractal, "Afractal": Figure.AffineFractal}#, "Mfractal": Figure.MatrixFractal}
+        self.fractals_class = {"Lfractal": LsystemFractal.LsystemFractal, "Afractal": AffineFractal.AffineFractal}#, "Mfractal": Figure.MatrixFractal}
 
     def create_fractal(self, name, *args, **kwargs):
         if name in self.fractals_class:

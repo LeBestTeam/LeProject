@@ -1,5 +1,5 @@
 from Builder import FigureBuilder
-from Figure import Figure
+from Figures.Figure import Figure
 from Window import Window
 
 

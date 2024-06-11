@@ -1,4 +1,4 @@
-from Figure import Figure
+from Figures.Figure import Figure
 
 
 class FigureBuilder:
