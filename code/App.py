@@ -6,7 +6,10 @@ import numpy as np
 
 class App:
     def __init__(self):
-        self.fractals_class = {"Lfractal": LsystemFractal.LsystemFractal, "Afractal": AffineFractal.AffineFractal}#, "Mfractal": Figure.MatrixFractal}
+        self.fractals_class = {
+            "Lfractal": LsystemFractal.LsystemFractal,
+            "Afractal": AffineFractal.AffineFractal
+        }  # , "Mfractal": Figure.MatrixFractal}
 
     def create_fractal(self, name, *args, **kwargs):
         if name in self.fractals_class:

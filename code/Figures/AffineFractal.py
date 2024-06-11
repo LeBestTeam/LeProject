@@ -7,7 +7,7 @@ class AffineFractal:
 
     Now there is no Animation and no cosinus and sinus
     """
-    def __init__(self, list_of_lists_of_parameter: list, size_of_fractal: int = 10**4, *args):
+    def __init__(self, list_of_lists_of_parameter: list, size_of_fractal: int=10**4, *args):
         """
         Initiates affine fractal with given parameters but before checks if parameters are correct
 
