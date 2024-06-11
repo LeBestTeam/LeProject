@@ -1,15 +1,69 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 class MatrixFractal:
-    def __init__(self, coefs:np.ndarray):
+    """
+    Matrix implementation of fractals (see compgraph MKR)
+    """
+    def __init__(self, coefs:np.ndarray, *args):
+        """
+        Initiates Matrix fractal with given coefs but before checks if parameters are correct
+
+        # Parameters:
+        coefs: np.ndarray (coefs of matrix which will be used in iterations)
+        """
+        if args != ():
+            raise ValueError(f"Wrong number of arguments, {args} excess")
+        self.list_to_check = [np.ndarray]
+        self.check_args(coefs)
+
         self.coefs = coefs
 
     def check_args(self, *args):
-        pass
+        """
+        Checks if parameters are correct
+
+        if not - raises ValueError with appropriate message
+        """
+        for argument_index in range(len(args)):
+            if type(args[argument_index]) is not self.list_to_check[argument_index]:
+                raise ValueError(f"Wrong argument {args[argument_index]}, which is {type(args[argument_index])} type, expected {self.list_to_check[argument_index]} type")
+
 
     def generate_points(self, iterations=3):
+        """
+        Generates more and more big matrix fractal on each iteration
+
+        # Updates:
+        Matrix each iteration
+
+        # Returns:
+        (row ^ N, col ^ N) matrix that should be displayed as image (plt.imshow)
+        """
         def redo_array(array, out_array=None, *args):
+            """
+            Makes array from array of arrays using recursion
+
+            array like [
+                [
+                    [1, 1, 1],
+                    [1, 1, 1],
+                    [1, 1, 1]
+                ],
+
+                [
+                    [1, 1, 1],
+                    [1, 0, 1],
+                    [1, 1, 1]
+                ]
+            ]
+            turns into array like [
+                [1, 1, 1, 1, 1, 1],
+                [1, 1, 1, 1, 0, 1],
+                [1, 1, 1, 1, 1, 1]
+             ]
+            """
             if len(array.shape) == 2:
                 if out_array is None:
                     out_array = array
@@ -37,6 +91,12 @@ class MatrixFractal:
         return result
 
 if __name__ == '__main__':
+    plt.imshow(MatrixFractal(np.array([
+        [0, 1, 0],
+        [1, 0, 1],
+        [0, 1, 0],
+    ])).generate_points(4), cmap='gray')
+    plt.show()
     plt.imshow(MatrixFractal(np.array([
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
