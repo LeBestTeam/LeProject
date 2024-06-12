@@ -8,7 +8,7 @@ class Figure:
     def check_args(self, *args):
         pass
 
-    def generate_points(self):
+    def generate_points(self, iteration):
         pass
 
 
@@ -19,7 +19,7 @@ class LsystemFractal(Figure):
     Now there is no Animation and only radians
     """
 
-    def __init__(self, axiom: str, rules: dict, max_iterations: int, fi: float, dfi: float, *args):
+    def __init__(self, axiom: str, rules: dict, fi: float, dfi: float, *args):
         """
         Initiates Lsystem fractal with given parameters but before checks if parameters are correct
 
@@ -33,12 +33,11 @@ class LsystemFractal(Figure):
 
         if args != ():
             raise ValueError(f"Wrong number of arguments, {args} excess")
-        self.list_to_check = [str, dict, int, float, float]  # Change if count of arguments changes
-        self.check_args(axiom, rules, max_iterations, fi, dfi)
+        self.list_to_check = [str, dict, float, float]  # Change if count of arguments changes
+        self.check_args(axiom, rules, fi, dfi)
 
         self.axiom = axiom
         self.rules = rules
-        self.max_iterations = max_iterations
         self.fi = fi
         self.dfi = dfi
 
@@ -52,7 +51,7 @@ class LsystemFractal(Figure):
             if type(args[argument_index]) is not self.list_to_check[argument_index]:
                 raise ValueError(f"Wrong argument {args[argument_index]}, which is {type(args[argument_index])} type, expected {self.list_to_check[argument_index]} type")
 
-    def generate_points(self):
+    def generate_points(self, iteration):
         """
         Generates more and more of Lsystem fractal on each iteration
 
@@ -64,28 +63,29 @@ class LsystemFractal(Figure):
         # Returns:
         (N+1 shape, N+1 shape) arrays of x and y coordinates
         """
-        for iteration in range(self.max_iterations):
+        result = self.axiom
+        for iteration in range(iteration):
             new_axiom = ''
-            for word_place in range(len(self.axiom)):
-                if self.axiom[word_place] in self.rules.keys():
+            for word_place in range(len(result)):
+                if result[word_place] in self.rules.keys():
                     new_axiom += self.rules[self.axiom[word_place]]
                 else:
-                    new_axiom += self.axiom[word_place]
-            self.axiom = new_axiom
+                    new_axiom += result[word_place]
+            result = new_axiom
 
-        N = len(self.axiom)
+        N = len(result)
         L = 2
         x = np.zeros(N+1)
         y = np.zeros(N+1)
         for i in range(N):
             x[i+1] = x[i]
             y[i+1] = y[i]
-            if self.axiom[i] == 'F':
+            if result[i] == 'F':
                 x[i+1] += L*np.cos(self.fi)
                 y[i+1] += L*np.sin(self.fi)
-            elif self.axiom[i] == '+':
+            elif result[i] == '+':
                 self.fi += self.dfi
-            elif self.axiom[i] == '-':
+            elif result[i] == '-':
                 self.fi -= self.dfi
         return x, y
 
@@ -96,7 +96,7 @@ class AffineFractal(Figure):
 
     Now there is no Animation and no cosinus and sinus
     """
-    def __init__(self, list_of_lists_of_parameter: list, size_of_fractal: int = 10**4, *args):
+    def __init__(self, list_of_lists_of_parameter: list, skip_first_n_points: int = 10**2, *args):
         """
         Initiates affine fractal with given parameters but before checks if parameters are correct
 
@@ -107,12 +107,9 @@ class AffineFractal(Figure):
         if args != ():
             raise ValueError(f"Wrong number of arguments, {args} excess")
         self.list_to_check = [list, int]
-        self.check_args(list_of_lists_of_parameter, size_of_fractal)
+        self.check_args(list_of_lists_of_parameter, skip_first_n_points)
 
-        self.size = size_of_fractal
-        self.xy_array = np.array(
-            [[0.0, 0.0]]*self.size
-        )
+        self.skip_first_n_points = skip_first_n_points
         # From here it is uses my representation of affine transformation (a = first list(row), b = second list(row) and others)
         if len(list_of_lists_of_parameter) == 7:
             self.a, self.b, self.c, self.d, self.e, self.f, self.p = list_of_lists_of_parameter
@@ -146,19 +143,22 @@ class AffineFractal(Figure):
                 raise ValueError(f"Wrong size of list {args[0]} whose len is: {len(args[0])}, expected 6 or 7")
             previous_parameter = parameter
 
-    def generate_points(self):
+    def generate_points(self, iteration):
         """
         Generates dot of affine fractal on each iteration
 
         # Updates:
         self.axiom each iteration
         """
+        result = np.array(
+            [[0.0, 0.0]]*iteration
+        )
         size_of_variation = len(self.p)
-        for i in range(self.size-1):
+        for i in range(iteration-1):
             variant = np.random.choice(size_of_variation, 1, p=self.p)
             variant = variant[0]
-            xk = self.a[variant]*self.xy_array[i, 0] + self.b[variant]*self.xy_array[i, 1] + self.e[variant]
-            yk = self.c[variant]*self.xy_array[i, 0] + self.d[variant]*self.xy_array[i, 1] + self.f[variant]
-            self.xy_array[i+1] = [xk, yk]
+            xk = self.a[variant]*result[i, 0] + self.b[variant]*result[i, 1] + self.e[variant]
+            yk = self.c[variant]*result[i, 0] + self.d[variant]*result[i, 1] + self.f[variant]
+            result[i+1] = [xk, yk]
             i += 1
-        return self.xy_array[:, 0], self.xy_array[:, 1]
+        return result[self.skip_first_n_points:, 0], result[self.skip_first_n_points:, 1]
