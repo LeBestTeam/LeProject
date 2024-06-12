@@ -17,10 +17,9 @@ class JuliaSet:
         width: int (width of the image)
         height: int (height of the image)
         """
-        self.check_args(c, max_iterations, threshold, width, height)
+        self.check_args(c, threshold, width, height)
 
         self.c = c
-        self.max_iterations = max_iterations
         self.threshold = threshold
         self.width = width
         self.height = height
@@ -34,12 +33,12 @@ class JuliaSet:
         if len(args) != 5:
             raise ValueError(f"Wrong number of arguments, {len(args)} provided, expected 5") 
 
-        expected_types = [complex, int, float, int, int]
+        expected_types = [complex, float, int, int]
         for arg, expected_type in zip(args, expected_types):
             if not isinstance(arg, expected_type):
                 raise ValueError(f"Expected {expected_type} but got {type(arg)} for argument {arg}")
 
-    def generate_points(self):
+    def generate_points(self, iteration):
         """
         Generates points for Julia set fractal.
 
@@ -55,14 +54,14 @@ class JuliaSet:
         X, Y = np.meshgrid(x, y)
         Z = X + 1j * Y
 
-        iterations = np.zeros(Z.shape, dtype=int)
+        result = np.zeros(Z.shape, dtype=int)
 
-        for i in range(self.max_iterations):
+        for i in range(iteration):
             mask = np.abs(Z) < self.threshold
             Z[mask] = Z[mask] ** 2 + self.c
-            iterations += mask
+            result += mask
 
-        return iterations
+        return result
 
 # class JuliaSet(Figure):
 #     """
