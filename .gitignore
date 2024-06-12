@@ -6,3 +6,4 @@ leproject
 
 # Trash
 *cache*
+*.pyc*
