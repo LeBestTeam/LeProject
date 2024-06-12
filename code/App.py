@@ -1,4 +1,4 @@
-from Figures import LsystemFractal, AffineFractal, MatrixFractal
+from Figures import LsystemFractal, AffineFractal, MatrixFractal, JuliaSet, MandelbrotSet
 from Director import FigureDirector
 
 import numpy as np
@@ -9,7 +9,9 @@ class App:
         self.fractals_class = {
             "Lfractal": LsystemFractal.LsystemFractal,
             "Afractal": AffineFractal.AffineFractal,
-            "Mfractal": MatrixFractal.MatrixFractal
+            "Mfractal": MatrixFractal.MatrixFractal,
+            "Juliafractal": JuliaSet.JuliaSet,
+            "Mandelbrotfractal": MandelbrotSet.MandelbrotSet
         }
 
     def create_fractal(self, name, *args, **kwargs):
@@ -29,4 +31,8 @@ app.create_fractal("Afractal", [
         [0.5, -0.4],
         [-0.2, 0.5]
 ])
+
 app.create_fractal("Mfractal", np.array([[0, 1, 1], [1, 0, 1], [1, 1, 0]]), it=2, is_matrix=True)
+
+app.create_fractal("Juliafractal", complex(-0.4, 0.6), 100, 2.0, 1000, 1000)
+app.create_fractal("Mandelbrotfractal", 100, 2.0, 1000, 1000)
