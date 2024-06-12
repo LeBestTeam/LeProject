@@ -1,6 +1,6 @@
-from Figures.Figure import Figure
+from Figure import Figure
 
 
 class FigureBuilder:
-    def build(self, figure: Figure, *args):
-        return figure.generate_points(*args)
+    def build(self, figure: Figure):
+        return figure.generate_points()
