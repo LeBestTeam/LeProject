@@ -28,10 +28,10 @@ class MandelbrotSet:
 
         if not - raises ValueError with appropriate message
         """
-        if len(args) != 4:
-            raise ValueError(f"Wrong number of arguments, {len(args)} provided, expected 5") 
-
         expected_types = [float, int, int]
+        if len(args) != len(expected_types):
+            raise ValueError(f"Wrong number of arguments, {len(args)} provided, expected {len(expected_types)}") 
+
         for arg, expected_type in zip(args, expected_types):
             if not isinstance(arg, expected_type):
                 raise ValueError(f"Expected {expected_type} but got {type(arg)} for argument {arg}")
@@ -55,7 +55,7 @@ class MandelbrotSet:
         Z = np.zeros(C.shape, dtype=complex)
         result = np.zeros(Z.shape, dtype=int)
 
-        for _ in range(self.iterations):
+        for _ in range(iterations):
             mask = np.abs(Z) < self.threshold
             Z[mask] = Z[mask] ** 2 + C[mask]
             result += mask
