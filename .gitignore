@@ -1,0 +1,9 @@
+
+.idea
+# Venv
+leproject
+.idea
+
+# Trash
+*cache*
+*.pyc*
