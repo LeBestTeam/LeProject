@@ -42,12 +42,7 @@ class LsystemFractal:
 
     def generate_points(self, iteration):
         """
-        Generates more and more of Lsystem fractal on each iteration
-
-        # Updates:
-        self.axiom each iteration
-
-        Calculates all coordinates of Lsystem fractal
+        Generates specified iteration of Lsystem fractal
 
         # Returns:
         (N+1 shape, N+1 shape) arrays of x and y coordinates

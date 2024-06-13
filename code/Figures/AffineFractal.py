@@ -65,7 +65,7 @@ class AffineFractal:
             [[0.0, 0.0]]*iteration
         )
         size_of_variation = len(self.p)
-        for i in range(iteration-1):
+        for i in range(iteration-1): # how to handle 'iteration = 0'? It should return starting configuration
             variant = np.random.choice(size_of_variation, 1, p=self.p)
             variant = variant[0]
             xk = self.a[variant]*result[i, 0] + self.b[variant]*result[i, 1] + self.e[variant]
