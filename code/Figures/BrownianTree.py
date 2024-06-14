@@ -6,12 +6,28 @@ import numba
 
 
 class BrownianTree:
+    """
+    Uses brownian motion to generate brownian tree fractal. When it near drawn dot it draws self position and stopps.
+    """
     def __init__(self, print_need=False):
+        """
+        it exists only for printing
+        """
         self.print_need = print_need
 
     def generate_points(self, iteration):
+        """
+        Creates circle (matrix that has 1 in center of circle, 2 after circle and 0 in other places) and then release brownian walker (random walker) in it and when it near drawn dot it draws self position and stopps.
+
+        # Returns:
+        (iteration*2+5, iteration*2+5) matrix that should be displayed as matrix (plt.matshow)
+        """
         @numba.njit()
         def create_circle(matrix, x_limit, y_limit, radius, squareSize):
+            """
+            # Returns:
+            (iteration*2+5, iteration*2+5)  matrix that has 1 in center of circle, 2 after circle and 0 in other places
+            """
             for row in range(squareSize):
                 for col in range(squareSize):
 
@@ -24,6 +40,16 @@ class BrownianTree:
 
         @numba.njit()
         def checkAround(x, y, squareSize, matrix):
+            """
+            Checks if there is friend or exit from circle around point (x, y), if not, chooses random way to go
+
+            # Returns:
+            x - x coordinate,
+            y - y coordinate,
+            friend_found - if there is dot nearby,
+            edge_near - if there is edge nearny,
+            exit_from_circle - if it exited from circle
+            """
             friend_found = False
             exit_from_circle = False
             edge_near = False
@@ -70,7 +96,6 @@ class BrownianTree:
         matrix = np.zeros((squareSize, squareSize))
 
         matrix = create_circle(matrix, x_limit, y_limit, radius, squareSize)
-
 
         rwalkers_count = 0
         rwalkers_count_stopped = 0
