@@ -52,7 +52,7 @@ class LsystemFractal:
             new_axiom = ''
             for word_place in range(len(result)):
                 if result[word_place] in self.rules.keys():
-                    new_axiom += self.rules[self.axiom[word_place]]
+                    new_axiom += self.rules[result[word_place]]
                 else:
                     new_axiom += result[word_place]
             result = new_axiom
