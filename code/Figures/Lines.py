@@ -1,47 +1,47 @@
 import numpy as np
 
 
-class EpicycloidCurve:
-    """
-    Generates points for an epicycloid curve.
-    """
+# class EpicycloidCurve:
+#     """
+#     Generates points for an epicycloid curve.
+#     """
 
-    def __init__(self, R: float, r: float, d: float):
-        """
-        Initializes the epicycloid curve with given parameters.
+#     def __init__(self, R: float, r: float, d: float):
+#         """
+#         Initializes the epicycloid curve with given parameters.
 
-        Parameters:
-        R: float (radius of the fixed circle)
-        r: float (radius of the rolling circle)
-        d: float (distance from the center of the rolling circle to the tracing point)
-        """
-        self.R = R
-        self.r = r
-        self.d = d
+#         Parameters:
+#         R: float (radius of the fixed circle)
+#         r: float (radius of the rolling circle)
+#         d: float (distance from the center of the rolling circle to the tracing point)
+#         """
+#         self.R = R
+#         self.r = r
+#         self.d = d
 
-    def check_args(self, *args):
-        """
-        Checks if parameters are correct.
-        """
-        expected_types = [float, float, float]
-        if len(args) != len(expected_types):
-            raise ValueError(f"Expected {len(expected_types)} arguments, but got {len(args)}")
+#     def check_args(self, *args):
+#         """
+#         Checks if parameters are correct.
+#         """
+#         expected_types = [float, float, float]
+#         if len(args) != len(expected_types):
+#             raise ValueError(f"Expected {len(expected_types)} arguments, but got {len(args)}")
 
-        for arg, expected_type in zip(args, expected_types):
-            if not isinstance(arg, expected_type):
-                raise ValueError(f"Expected {expected_type} but got {type(arg)} for argument {arg}")
+#         for arg, expected_type in zip(args, expected_types):
+#             if not isinstance(arg, expected_type):
+#                 raise ValueError(f"Expected {expected_type} but got {type(arg)} for argument {arg}")
 
-    def generate_points(self):
-        """
-        Generates points for an epicycloid curve.
+#     def generate_points(self):
+#         """
+#         Generates points for an epicycloid curve.
 
-        Returns:
-        Two arrays x and y containing the coordinates of the points.
-        """
-        t = np.linspace(0, 2 * np.pi, 1000)
-        x = (self.R + self.r) * np.cos(t) - self.d * np.cos((self.R + self.r) / self.r * t)
-        y = (self.R + self.r) * np.sin(t) - self.d * np.sin((self.R + self.r) / self.r * t)
-        return x, y
+#         Returns:
+#         Two arrays x and y containing the coordinates of the points.
+#         """
+#         t = np.linspace(0, 2 * np.pi, 1000)
+#         x = (self.R + self.r) * np.cos(t) - self.d * np.cos((self.R + self.r) / self.r * t)
+#         y = (self.R + self.r) * np.sin(t) - self.d * np.sin((self.R + self.r) / self.r * t)
+#         return x, y
 
 
 class ArchimedeanSpiral:
