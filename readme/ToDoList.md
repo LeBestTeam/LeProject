@@ -7,6 +7,9 @@
 * Julia фрактали
 * Mandelbrot фрактали
 * Морфінг
+* Epicycloid Curve
+* Cardioid Curve
+* Archimedean Spiral
 
 ### Максим
 * Почистити директорії від сміття
