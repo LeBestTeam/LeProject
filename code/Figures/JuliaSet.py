@@ -140,3 +140,86 @@ class JuliaSet:
 #         y_coords = Y[mask]
 
 #         return x_coords, y_coords
+
+import numpy as np
+
+class LyapunovFractal:
+    """
+    Builds Lyapunov fractal.
+    """
+
+    def __init__(self, sequence: str, max_iterations: int, threshold: float, width: int, height: int):
+        """
+        Initializes Lyapunov fractal with given parameters but before checks if parameters are correct
+
+        Parameters:
+        sequence: str (sequence of A's and B's)
+        max_iterations: int (maximum number of iterations)
+        threshold: float (escape radius)
+        width: int (width of the image)
+        height: int (height of the image)
+        """
+        self.check_args(sequence, max_iterations, threshold, width, height)
+
+        self.sequence = sequence
+        self.max_iterations = max_iterations
+        self.threshold = threshold
+        self.width = width
+        self.height = height
+
+    def check_args(self, *args):
+        """
+        Checks if parameters are correct
+
+        if not - raises ValueError with appropriate message
+        """
+        if len(args) != 5:
+            raise ValueError(f"Wrong number of arguments, {len(args)} provided, expected 5") 
+
+        if not isinstance(args[0], str) or not all(c in "AB" for c in args[0]):
+            raise ValueError(f"Expected a string of A's and B's but got {args[0]}")
+        if not isinstance(args[1], int):
+            raise ValueError(f"Expected {int} but got {type(args[1])} for argument {args[1]}")
+        if not isinstance(args[2], float):
+            raise ValueError(f"Expected {float} but got {type(args[2])} for argument {args[2]}")
+        if not isinstance(args[3], int):
+            raise ValueError(f"Expected {int} but got {type(args[3])} for argument {args[3]}")
+        if not isinstance(args[4], int):
+            raise ValueError(f"Expected {int} but got {type(args[4])} for argument {args[4]}")
+
+    def generate_points(self):
+        """
+        Generates points for Lyapunov fractal.
+
+        Returns:
+        numpy array with shape (width, height) containing the number of iterations for each point.
+        """
+        x_min, x_max = 2.5, 4.0
+        y_min, y_max = 2.5, 4.0
+
+        x = np.linspace(x_min, x_max, self.width)
+        y = np.linspace(y_min, y_max, self.height)
+
+        X, Y = np.meshgrid(x, y)
+        iterations = np.zeros(X.shape, dtype=int)
+        
+        for i in range(self.width):
+            for j in range(self.height):
+                r1, r2 = X[i, j], Y[i, j]
+                zn = 0.5
+                stable = True
+                for k in range(self.max_iterations):
+                    if self.sequence[k % len(self.sequence)] == 'A':
+                        zn = r1 * zn * (1 - zn)
+                    else:
+                        zn = r2 * zn * (1 - zn)
+                    
+                    if zn <= 0 or zn >= 1:
+                        stable = False
+                        break
+
+                iterations[i, j] = k if stable else self.max_iterations
+
+        return iterations
+
+
