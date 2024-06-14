@@ -2,33 +2,31 @@ import os
 
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-from matplotlib import colors
 
 
 class Window:
     def draw(self, input_value, **kwargs):
         if "is_matrix" in kwargs and kwargs["is_matrix"]:
-            plt.imshow(input_value, cmap='gray')
-        elif "is_random_matrix" in kwargs and kwargs["is_random_matrix"]:
-            cmap = colors.ListedColormap(['black', 'lightgray', "white"])
-            if "animation_need" in kwargs and kwargs["animation_need"]:
-                fig, ax = plt.subplots()
-
-                ax.matshow(input_value[0], interpolation='nearest', cmap=cmap)  # matrix
-
-                def update(frame):
-                    ax.clear()
-                    ax.matshow(input_value[frame], interpolation='nearest', cmap=cmap)
-
-                ani = animation.FuncAnimation(fig=fig, func=update, frames=len(input_value), interval=30)
-                if "animation_save" in kwargs and kwargs["animation_save"]:
-                    if not os.path.isdir("images"):
-                        os.mkdir("images")
-                    add_to_name = len(os.listdir("./images"))
-                    ani.save("./images/random_matrix_" + str(add_to_name) + '.gif', writer=animation.PillowWriter(fps=15))
+            if type(input_value) is not list:
+                plt.imshow(input_value, cmap='gray')
             else:
-                plt.matshow(input_value[-1], interpolation='nearest', cmap=cmap)
+                if "animation_need" in kwargs and kwargs["animation_need"]:
+                    fig, ax = plt.subplots()
 
+                    ax.imshow(input_value[0], cmap='gray')  # matrix
+
+                    def update(frame):
+                        ax.clear()
+                        ax.imshow(input_value[frame], cmap='gray')
+
+                    ani = animation.FuncAnimation(fig=fig, func=update, frames=len(input_value), interval=30)
+                    if "animation_save" in kwargs and kwargs["animation_save"]:
+                        if not os.path.isdir("images"):
+                            os.mkdir("images")
+                        add_to_name = len(os.listdir("./images"))
+                        ani.save("./images/matrix_" + str(add_to_name) + '.gif', writer=animation.PillowWriter(fps=15))
+                else:
+                    plt.imshow(input_value[-1], cmap='gray')
         elif isinstance(input_value, tuple):
             x, y = input_value
             if "is_edge" in kwargs and kwargs["is_edge"]:
