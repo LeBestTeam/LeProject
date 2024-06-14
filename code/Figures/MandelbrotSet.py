@@ -6,7 +6,7 @@ class MandelbrotSet:
     Builds Mandelbrot set fractal
     """
 
-    def __init__(self, threshold: float, width: int, height: int):
+    def __init__(self, threshold: float, width: int, height: int, *args):
         """
         Initializes Mandelbrot set fractal with given parameters
 
@@ -16,21 +16,21 @@ class MandelbrotSet:
         width: int (width of the image)
         height: int (height of the image)
         """
+        if args != ():
+            raise ValueError(f"Wrong number of arguments, {args} excess")
         self.check_args(threshold, width, height)
 
         self.threshold = threshold
         self.width = width
         self.height = height
 
-    def check_args(self,*args):
+    def check_args(self, *args):
         """
         Checks if parameters are correct
 
         if not - raises ValueError with appropriate message
         """
         expected_types = [float, int, int]
-        if len(args) != len(expected_types):
-            raise ValueError(f"Wrong number of arguments, {len(args)} provided, expected {len(expected_types)}") 
 
         for arg, expected_type in zip(args, expected_types):
             if not isinstance(arg, expected_type):

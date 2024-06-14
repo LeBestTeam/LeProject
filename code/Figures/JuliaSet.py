@@ -6,7 +6,7 @@ class JuliaSet:
     Builds Julia set fractal
     """
 
-    def __init__(self, c: complex, threshold: float, width: int, height: int):
+    def __init__(self, c: complex, threshold: float, width: int, height: int, *args):
         """
         Initializes Julia set fractal with given parameters but before checks if parameters are correct
 
@@ -17,6 +17,8 @@ class JuliaSet:
         width: int (width of the image)
         height: int (height of the image)
         """
+        if args != ():
+            raise ValueError(f"Wrong number of arguments, {args} excess")
         self.check_args(c, threshold, width, height)
 
         self.c = c
@@ -31,9 +33,6 @@ class JuliaSet:
         if not - raises ValueError with appropriate message
         """
         expected_types = [complex, float, int, int]
-
-        if len(args) != len(expected_types):
-            raise ValueError(f"Wrong number of arguments, {len(args)} provided, expected {len(expected_types)}")
 
         for arg, expected_type in zip(args, expected_types):
             if not isinstance(arg, expected_type):
