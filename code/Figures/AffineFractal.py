@@ -85,8 +85,8 @@ class AffineFractal:
             for i in range(iteration-1):
                 variant = np.random.choice(size_of_variation, 1, p=self.p)
                 variant = variant[0]
-                xk = self.r[variant]*np.cos(self.t[variant])*self.xy[i, 0] - self.s[variant]*np.sin(self.fi[variant])*self.xy[i, 1] + self.e[variant]
-                yk = self.r[variant]*np.sin(self.t[variant])*self.xy[i, 0] + self.s[variant]*np.cos(self.fi[variant])*self.xy[i, 1] + self.f[variant]
+                xk = self.r[variant]*np.cos(self.t[variant])*result[i, 0] - self.s[variant]*np.sin(self.fi[variant])*result[i, 1] + self.e[variant]
+                yk = self.r[variant]*np.sin(self.t[variant])*result[i, 0] + self.s[variant]*np.cos(self.fi[variant])*result[i, 1] + self.f[variant]
                 result[i+1] = [xk, yk]
                 # i += 1
 

@@ -28,7 +28,7 @@ class App:
 
 
 app = App()
-app.create_fractal("Lfractal", "F+F+F+F", {"F": "F+F-F-F+F"}, 0., np.pi/2, it=7, animation_need=True, multi=200, animation_save=True)
+app.create_fractal("Lfractal", "F+F+F+F", {"F": "F+F-F-F+F"}, 0., np.pi/2, it=5, animation_need=True, multi=200, animation_save=False)
 app.create_fractal("Afractal", [
         [1.0, -0.1],
         [0.2, -1.0],
@@ -36,7 +36,7 @@ app.create_fractal("Afractal", [
         [0.7, 0.2],
         [0.5, -0.4],
         [-0.2, 0.5]
-], it=4*10**5, animation_need=True, multi=200, animation_save=True)
+], it=4*10**4, animation_need=True, multi=200, animation_save=False)
 
 app.create_fractal("Afractal", [
     [0.0500, 0.0500, 0.6000, 0.5000, 0.5000, 0.5500],
