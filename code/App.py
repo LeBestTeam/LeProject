@@ -1,4 +1,4 @@
-from Figures import LsystemFractal, AffineFractal, MatrixFractal, JuliaSet, MandelbrotSet, MorphingFractal, Lines
+from Figures import LsystemFractal, AffineFractal, MatrixFractal, CardioidCurve, ArchimedeanSpiral, MorphingFractal
 from Director import FigureDirector
 
 
@@ -9,10 +9,8 @@ class App:
             "Lfractal": LsystemFractal.LsystemFractal,
             "Afractal": AffineFractal.AffineFractal,
             "Mfractal": MatrixFractal.MatrixFractal,
-            "Juliafractal": JuliaSet.JuliaSet,
-            "Mandelbrotfractal": MandelbrotSet.MandelbrotSet,
-            "CardioidCurve": Lines.CardioidCurve,
-            "ArchimedeanSpiral": Lines.ArchimedeanSpiral,
+            "CardioidCurve": CardioidCurve.CardioidCurve,
+            "ArchimedeanSpiral": ArchimedeanSpiral.ArchimedeanSpiral,
             "MorphingFractal": MorphingFractal.MorphingFractal 
         }
 
@@ -41,12 +39,8 @@ app = App()
 # app.create_fractal("Juliafractal", complex(-0.4, 0.6), 100, 2.0, 1000, 1000)
 # app.create_fractal("Mandelbrotfractal", 100, 2.0, 1000, 1000)
 
-# app.create("ArchimedeanSpiral", 0.5, 0.2)
-# app.create("CardioidCurve", 1.0)
-
-# app.create("BurningShipFractal", 100, 2.0, 1000, 1000)
-# app.create("MultibrotFractal", 3, 100, 2.0, 1000, 1000)
-# app.create("TricornFractal", 100, 2.0, 1000, 1000)
+app.create("ArchimedeanSpiral", 0.5, 0.2)
+app.create("CardioidCurve", 1.0)
 
 app.create("MorphingFractal","Julia", complex(-0.4, 0.6), 100, 2.0, 1000, 1000)
 app.create("MorphingFractal", "Mandelbrot", 100, 2.0, 1000, 1000)
