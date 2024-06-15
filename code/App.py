@@ -1,6 +1,7 @@
-from Figures import LsystemFractal, AffineFractal, MatrixFractal, CardioidCurve, ArchimedeanSpiral, MorphingFractal
+from Figures import LsystemFractal, AffineFractal, MatrixFractal, CardioidCurve, ArchimedeanSpiral, MorphingFractal, LissajousCurve
 from Director import FigureDirector
 
+import numpy as np
 
 class App:
     def __init__(self):
@@ -11,7 +12,8 @@ class App:
             "Mfractal": MatrixFractal.MatrixFractal,
             "CardioidCurve": CardioidCurve.CardioidCurve,
             "ArchimedeanSpiral": ArchimedeanSpiral.ArchimedeanSpiral,
-            "MorphingFractal": MorphingFractal.MorphingFractal 
+            "MorphingFractal": MorphingFractal.MorphingFractal,
+            "LissajousCurve": LissajousCurve.LissajousCurve
         }
 
 
@@ -24,23 +26,28 @@ class App:
 
 app = App()
 
-# app.create_fractal("Lfractal", "F+F+F+F", {"F": "F+F-F-F+F"}, 5, 0., np.pi/2)
-# app.create_fractal("Afractal", [
-#         [1.0, -0.1],
-#         [0.2, -1.0],
-#         [-0.3, 0.4],
-#         [0.7, 0.2],
-#         [0.5, -0.4],
-#         [-0.2, 0.5]
-# ])
+app.create_fractal("Lfractal", "F+F+F+F", {"F": "F+F-F-F+F"}, 5, 0., np.pi/2)
+app.create_fractal("Afractal", [
+        [1.0, -0.1],
+        [0.2, -1.0],
+        [-0.3, 0.4],
+        [0.7, 0.2],
+        [0.5, -0.4],
+        [-0.2, 0.5]
+])
 
-# app.create_fractal("Mfractal", np.array([[0, 1, 1], [1, 0, 1], [1, 1, 0]]), it=2, is_matrix=True)
+app.create_fractal("Mfractal", np.array([[0, 1, 1], [1, 0, 1], [1, 1, 0]]), it=2, is_matrix=True)
 
-# app.create_fractal("Juliafractal", complex(-0.4, 0.6), 100, 2.0, 1000, 1000)
-# app.create_fractal("Mandelbrotfractal", 100, 2.0, 1000, 1000)
+app.create_fractal("Juliafractal", complex(-0.4, 0.6), 100, 2.0, 1000, 1000)
+app.create_fractal("Mandelbrotfractal", 100, 2.0, 1000, 1000)
 
 app.create("ArchimedeanSpiral", 0.5, 0.2)
 app.create("CardioidCurve", 1.0)
+app.create("LissajousCurve", 1.0, 2.0, np.pi/2)
+app.create("LissajousCurve", 3.0, 2.0, np.pi/2)
+app.create("LissajousCurve", 3.0, 4.0, np.pi/2)
+app.create("LissajousCurve", 5.0, 4.0, np.pi/2)
+
 
 app.create("MorphingFractal","Julia", complex(-0.4, 0.6), 100, 2.0, 1000, 1000)
 app.create("MorphingFractal", "Mandelbrot", 100, 2.0, 1000, 1000)
