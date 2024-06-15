@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class DefaultPolynomialFunction:
     def __init__(self, start: float, stop: float, polynom: list, step: float, *args):
         if args != ():
@@ -13,7 +14,14 @@ class DefaultPolynomialFunction:
         self.step = step
 
     def check_args(self, *args):
-        pass
+        for argument_index in range(len(args)):
+            if type(args[argument_index]) is not self.list_to_check[argument_index]:
+                raise ValueError(
+                    f"Wrong argument {args[argument_index]}, which is {type(args[argument_index])} type, expected {self.list_to_check[argument_index]} type")
 
     def generate_points(self, iteration):
-        pass
+        x = np.array(range(self.start, self.stop + self.step, self.step))
+        y = np.zeros(len(range(self.start, self.stop + self.step, self.step)))
+        for i in range(len(self.polynom)):
+            y += (x ** i) * self.polynom[i]
+        return x, y
