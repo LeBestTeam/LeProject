@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class RegularPolygon:
@@ -17,7 +18,7 @@ class RegularPolygon:
         """
         if args != ():
             raise ValueError(f"Wrong number of arguments, {args} excess")
-        self.list_to_check = [float, bool]  # Change if count of arguments changes
+        self.list_to_check = [float, float, bool]  # Change if count of arguments changes
         self.check_args(radius, fi, overdot)
 
         self.radius = radius
@@ -49,10 +50,16 @@ class RegularPolygon:
             x = np.zeros(iteration)
             y = np.zeros(iteration)
         angle = self.fi % np.pi
-        d_angle = np.pi / iteration
+        d_angle = np.pi * 2 / iteration
         for i in range(iteration):
             x[i], y[i] = self.radius * np.cos(angle), self.radius * np.sin(angle)
             angle += d_angle
         if self.overdot:
             x[-1], y[-1] = x[0], y[0]
         return x, y
+
+
+if __name__ == '__main__':
+    dots = RegularPolygon(2.0, 0.1).generate_points(6)
+    plt.scatter(dots[0], dots[1])
+    plt.show()
