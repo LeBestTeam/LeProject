@@ -1,4 +1,4 @@
-from Figures import LsystemFractal, AffineFractal, MatrixFractal, JuliaSet, MandelbrotSet
+from Figures import LsystemFractal, AffineFractal, MatrixFractal, CardioidCurve, ArchimedeanSpiral, LissajousCurve, MorphingFractal, BrownianTree,BrownianTree, NangularFractal, BrownianMotion
 from Director import FigureDirector
 
 import numpy as np
@@ -16,9 +16,8 @@ class App:
             "MorphingFractal": MorphingFractal.MorphingFractal,
             "LissajousCurve": LissajousCurve.LissajousCurve,
             "BrownianTree": BrownianTree.BrownianTree,
-            "BrownianMotion": BrownianMotion.BrownianMotion,
+            "BrownianMotion": BrownianMotion.BrownianTree,
             "NangularFractal": NangularFractal.NangularFractal
-            
         }
 
 
