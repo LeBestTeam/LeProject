@@ -13,10 +13,10 @@ class App:
             "CardioidCurve": CardioidCurve.CardioidCurve,
             "ArchimedeanSpiral": ArchimedeanSpiral.ArchimedeanSpiral,
             "MorphingFractal": MorphingFractal.MorphingFractal,
-            "LissajousCurve": LissajousCurve.LissajousCurve,
-            "BrownianTree": BrownianTree.BrownianTree,
-            "BrownianMotion": BrownianMotion.BrownianTree,
-            "NangularFractal": NangularFractal.NangularFractal
+            # "LissajousCurve": LissajousCurve.LissajousCurve,
+            # "BrownianTree": BrownianTree.BrownianTree,
+            # "BrownianMotion": BrownianMotion.BrownianTree,
+            # "NangularFractal": NangularFractal.NangularFractal
         }
 
 
