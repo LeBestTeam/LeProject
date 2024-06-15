@@ -1,4 +1,4 @@
-from Figures import LsystemFractal, AffineFractal, MatrixFractal, JuliaSet, MandelbrotSet, BrownianTree, BrownianMotion
+from Figures import LsystemFractal, AffineFractal, MatrixFractal, JuliaSet, MandelbrotSet, BrownianTree, BrownianMotion, NangularFractal
 from Director import FigureDirector
 
 import numpy as np
@@ -17,6 +17,7 @@ class App:
             # Random Fractals
             "BrownianTree": BrownianTree.BrownianTree,
             "BrownianMotion": BrownianMotion.BrownianMotion,
+            "NangularFractal": NangularFractal.NangularFractal
         }
 
     def create_fractal(self, name, *args, **kwargs):
@@ -44,3 +45,8 @@ app.create_fractal("Mandelbrotfractal", 2.0, 1000, 1000, it=100)
 
 app.create_fractal("BrownianTree", False, it=30, is_matrix=True, animation_need=True)
 app.create_fractal("BrownianMotion", 300, it=30000, is_matrix=True, animation_need=True)
+app.create_fractal("NangularFractal", np.array([
+    [0, 0],
+    [1, 5],
+    [2, -1],
+]), it=4*10**4)
