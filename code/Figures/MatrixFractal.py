@@ -78,15 +78,15 @@ class MatrixFractal:
                 else:
                     out_array = np.concatenate((out_array, redo_array(array[i], None, *args, i)), axis=0)
             return out_array
-
+        
         matrix = np.ones((1, 1))
-        result = [matrix]
+        result = matrix
         for it in range(iterations):
             matrix = np.array([[coef * matrix for coef in row] for row in self.coefs])
             if matrix.shape[:-2] == (1, 1):
                 matrix = matrix.reshape(matrix.shape[:-2])
             matrix = redo_array(matrix)
-            result.append(1-matrix)
+            result = 1-matrix
         return result
 
 if __name__ == '__main__':

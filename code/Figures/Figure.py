@@ -5,5 +5,5 @@ class Figure:
     def check_args(self, *args):
         pass
 
-    def generate_points(self, iteration):
+    def generate_points(self):
         pass
