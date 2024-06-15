@@ -8,7 +8,7 @@ class AffineFractal:
 
     Now there is no Animation and no cosinus and sinus
     """
-    def __init__(self, list_of_lists_of_parameter: list, skip_first_n_points: int=10**2, *args):
+    def __init__(self, list_of_lists_of_parameter: list, skip_first_n_points: int=10**2, standart_type:bool =True, *args):
         """
         Initiates affine fractal with given parameters but before checks if parameters are correct
 
@@ -18,16 +18,24 @@ class AffineFractal:
         """
         if args != ():
             raise ValueError(f"Wrong number of arguments, {args} excess")
-        self.list_to_check = [list, int]
-        self.check_args(list_of_lists_of_parameter, skip_first_n_points)
+        self.list_to_check = [list, int, bool]
+        self.check_args(list_of_lists_of_parameter, skip_first_n_points, standart_type)
 
         self.skip_first_n_points = skip_first_n_points
+        self.standart_type = standart_type
         # From here it is uses my representation of affine transformation (a = first list(row), b = second list(row) and others)
-        if len(list_of_lists_of_parameter) == 7:
-            self.a, self.b, self.c, self.d, self.e, self.f, self.p = list_of_lists_of_parameter
+        if self.standart_type:
+            if len(list_of_lists_of_parameter) == 7:
+                self.a, self.b, self.c, self.d, self.e, self.f, self.p = list_of_lists_of_parameter
+            else:
+                self.a, self.b, self.c, self.d, self.e, self.f = list_of_lists_of_parameter
+                self.p = [1/len(self.a)] * len(self.a)
         else:
-            self.a, self.b, self.c, self.d, self.e, self.f = list_of_lists_of_parameter
-            self.p = [1/len(self.a)] * len(self.a)
+            if len(list_of_lists_of_parameter) == 7:
+                self.r, self.s, self.t, self.fi, self.e, self.f, self.p = list_of_lists_of_parameter
+            else:
+                self.r, self.s, self.t, self.fi, self.e, self.f = list_of_lists_of_parameter
+                self.p = [1/self.r.__len__()] * len(self.r)
 
     def check_args(self, *args):
         """
@@ -66,14 +74,25 @@ class AffineFractal:
             [[0.0, 0.0]]*iteration
         )
         size_of_variation = len(self.p)
-        for i in range(iteration-1): # how to handle 'iteration = 0'? It should return starting configuration
-            variant = np.random.choice(size_of_variation, 1, p=self.p)
-            variant = variant[0]
-            xk = self.a[variant]*result[i, 0] + self.b[variant]*result[i, 1] + self.e[variant]
-            yk = self.c[variant]*result[i, 0] + self.d[variant]*result[i, 1] + self.f[variant]
-            result[i+1] = [xk, yk]
-            i += 1
+        if self.standart_type:
+            for i in range(iteration-1): # how to handle 'iteration = 0'? It should return starting configuration
+                variant = np.random.choice(size_of_variation, 1, p=self.p)
+                variant = variant[0]
+                xk = self.a[variant]*result[i, 0] + self.b[variant]*result[i, 1] + self.e[variant]
+                yk = self.c[variant]*result[i, 0] + self.d[variant]*result[i, 1] + self.f[variant]
+                result[i+1] = [xk, yk]
+                # i += 1
+        else:
+            for i in range(iteration-1):
+                variant = np.random.choice(size_of_variation, 1, p=self.p)
+                variant = variant[0]
+                xk = self.r[variant]*np.cos(self.t[variant])*result[i, 0] - self.s[variant]*np.sin(self.fi[variant])*result[i, 1] + self.e[variant]
+                yk = self.r[variant]*np.sin(self.t[variant])*result[i, 0] + self.s[variant]*np.cos(self.fi[variant])*result[i, 1] + self.f[variant]
+                result[i+1] = [xk, yk]
+                # i += 1
+
         return result[self.skip_first_n_points:, 0], result[self.skip_first_n_points:, 1]
+
 
 if __name__ == "__main__":
     x, y = AffineFractal([
@@ -83,7 +102,7 @@ if __name__ == "__main__":
         [0.7, 0.2],
         [0.5, -0.4],
         [-0.2, 0.5]
-]).generate_points(4*10**4)
+    ]).generate_points(4*10**4)
 
     plt.plot(x, y, marker='o', linestyle='', markersize=0.6)
     plt.show()
