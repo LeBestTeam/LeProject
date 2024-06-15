@@ -16,19 +16,7 @@ class Window:
                 else:
                     plt.plot(x, y, marker='o', linestyle='', markersize=0.6)
         else:
-            plt.imshow(input_value, cmap='hot', extent=[-2, 2, -2, 2], interpolation='nearest')
-            plt.colorbar(label='Iterations')
+            plt.imshow(input_value, cmap='inferno', extent=[-2, 2, -2, 2], interpolation='nearest')
 
         plt.show()
 
-    # def draw(self, frames, **kwargs):
-    #     for i, frame in enumerate(frames):
-    #         plt.imshow(frame, cmap='hot', extent=[-2, 2, -2, 2], interpolation='nearest')
-    #         plt.colorbar(label='Iterations')
-    #         plt.title(f'Frame {i + 1}')
-    #         plt.xlabel('Re(c)')
-    #         plt.ylabel('Im(c)')
-    #         plt.pause(0.1)  # Add a pause to create an animation effect
-    #         plt.clf()  # Clear the figure to draw the next frame
-
-    #     plt.show()
