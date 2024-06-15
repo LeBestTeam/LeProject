@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class MandelbrotSet:
@@ -61,3 +62,11 @@ class MandelbrotSet:
             result += mask
 
         return result
+
+if __name__ == "__main__":
+    mandelbrot = MandelbrotSet(100., 1000, 1000)
+    input_value = mandelbrot.generate_points(100)
+    plt.imshow(input_value, cmap='hot', extent=[-2, 2, -2, 2], interpolation='nearest')
+    plt.colorbar(label='Iterations')
+    plt.show()
+

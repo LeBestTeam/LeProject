@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class LsystemFractal:
@@ -72,3 +73,9 @@ class LsystemFractal:
             elif result[i] == '-':
                 self.fi -= self.dfi
         return x, y
+
+if __name__ == '__main__':
+    l = LsystemFractal('F', {'F': 'F+F--F+F'}, 0., 0.5)
+    x, y = l.generate_points(5)
+    plt.plot(x, y, marker='', linestyle='-', markersize=0.6)
+    plt.show()
