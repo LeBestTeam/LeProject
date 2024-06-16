@@ -1,11 +1,12 @@
 from Figures import (
     LsystemFractal, AffineFractal, MatrixFractal, CardioidCurve, ArchimedeanSpiral,
     LissajousCurve, MorphingFractal, BrownianTree, NangularFractal, BrownianMotion,
-    ReguralPolygon, DefaultPolynomialFunction
+    RegularPolygon, DefaultPolynomialFunction
 )
 from Director import FigureDirector
 
 import numpy as np
+
 
 class App:
     def __init__(self):
@@ -21,7 +22,7 @@ class App:
             "BrownianMotion": BrownianMotion.BrownianMotion,
             "NangularFractal": NangularFractal.NangularFractal,
             # Non Fractals
-            "ReguralPolygon": ReguralPolygon.RegularPolygon,
+            "ReguralPolygon": RegularPolygon.RegularPolygon,
             "DefaultPolynomialFunction": DefaultPolynomialFunction.DefaultPolynomialFunction,
             "CardioidCurve": CardioidCurve.CardioidCurve,
             "ArchimedeanSpiral": ArchimedeanSpiral.ArchimedeanSpiral,
