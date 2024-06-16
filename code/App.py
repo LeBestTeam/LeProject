@@ -87,7 +87,9 @@ app.create_figure("LissajousCurve", 5.0, 4.0, np.pi/2, animation_need=True, mult
 
 
 app.create_figure("MorphingFractal","Julia", complex(-0.4, 0.6), 100, 2.0, 1000, 1000)
-app.create_figure("MorphingFractal", "Mandelbrot", 100, 2.0, 1000, 1000, save_gif=True, filename='Mandelbrot.gif') 
-app.create_figure("MorphingFractal", "Multibrot", 3, 100, 2.0, 1000, 1000, save_gif=True, filename='Multibrot.gif')  
-app.create_figure("MorphingFractal", "BurningShip", 100, 2.0, 1000, 1000, save_gif=True, filename='BurningShip.gif')
-app.create_figure("MorphingFractal", "Tricorn", 100, 2.0, 1000, 1000, save_gif=True, filename='Tricorn.gif')
+app.create_figure("MorphingFractal", "Mandelbrot", 100, 100, 2.0, 1000, 1000)
+app.create_figure("MorphingFractal", "Multibrot", 3, 100, 2.0, 1000, 1000)  
+app.create_figure("MorphingFractal", "BurningShip", 100, 100, 2.0, 1000, 1000)
+app.create_figure("MorphingFractal", "Tricorn", 100, 100, 2.0, 1000, 1000)
+app.create_figure("MorphingFractal", "SinJulia", complex(-0.4, 0.6), 100, 2.0, 1000, 1000)
+app.create_figure('MorphingFractal', 'HyperbolicTangent', complex(0.1, 0.1), 100, 2.0, 1000, 1000)
