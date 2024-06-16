@@ -86,7 +86,7 @@ if __name__ == "__main__":
                       it=4*10**4, animation_need=True, animation_save=False, multi=200, has_background=False, has_axes=False)
 
     app.create_figure("ReguralPolygon", 3., 0.5,
-                      it=100, animation_need=True, animation_save=False, multi=2, is_fixed_size=True, has_background=False, has_axes=False)
+                      it=12, animation_need=True, animation_save=False, multi=1, fps=10, is_edge=True, is_fixed_size=True, has_background=False, has_axes=False)
     app.create_figure("DefaultPolynomialFunction", -10.0, 10.0, [0, 0, 0, 1],
                       it=1000, animation_need=True, animation_save=False, multi=200, is_fixed_size=True, has_background=False, has_axes=False)
 
