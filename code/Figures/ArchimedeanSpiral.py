@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class ArchimedeanSpiral:
@@ -14,9 +15,16 @@ class ArchimedeanSpiral:
             if not isinstance(arg, expected_type):
                 raise ValueError(f"Expected {expected_type} but got {type(arg)} for argument {arg}")
 
-    def generate_points(self):
-        t = np.linspace(0, 10 * np.pi, 4000)
+    def generate_points(self, iteration):
+        t = np.linspace(0, 10 * np.pi, iteration)
         r = self.a + self.b * t
         x = r * np.cos(t)
         y = r * np.sin(t)
         return x, y
+
+
+if __name__ == "__main__":
+    archimedean = ArchimedeanSpiral(1, 2)
+    x, y = archimedean.generate_points(4000)
+    plt.plot(x, y)
+    plt.show()
