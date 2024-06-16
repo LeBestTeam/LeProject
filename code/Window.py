@@ -1,32 +1,29 @@
 import os
-
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-
 
 class Window:
     def draw(self, input_value, **kwargs):
         multiplayer = 1
         if "multiplayer" in kwargs:
-            if type(kwargs["multiplayer"]) is int or type(kwargs["multiplayer"]) is float:
+            if isinstance(kwargs["multiplayer"], (int, float)):
                 multiplayer = kwargs["multiplayer"]
         if "multi" in kwargs:
-            if type(kwargs["multi"]) is int or type(kwargs["multi"]) is float:
+            if isinstance(kwargs["multi"], (int, float)):
                 multiplayer = kwargs["multi"]
 
         interval = 1
         if "interval" in kwargs:
-            if type(kwargs["interval"]) is int or type(kwargs["interval"]) is float:
+            if isinstance(kwargs["interval"], (int, float)):
                 interval = kwargs["interval"]
 
         if "animation_save" in kwargs and kwargs["animation_save"]:
             if not os.path.isdir("images"):
                 os.mkdir("images")
             add_to_name = len(os.listdir("./images"))
+
         if "is_matrix" in kwargs and kwargs["is_matrix"]:
-            if type(input_value) is not list:
-                plt.imshow(input_value, cmap='gray')
-            else:
+            if isinstance(input_value, list):
                 if "animation_need" in kwargs and kwargs["animation_need"]:
                     fig, ax = plt.subplots()
 
@@ -36,50 +33,83 @@ class Window:
                         ax.clear()
                         ax.imshow(input_value[frame], cmap='gray')
 
-                    ani = animation.FuncAnimation(fig=fig, func=update, frames=len(input_value), interval=30*interval)
+                    ani = animation.FuncAnimation(fig=fig, func=update, frames=len(input_value), interval=30 * interval)
                     if "animation_save" in kwargs and kwargs["animation_save"]:
                         ani.save("./images/figure_" + str(add_to_name) + '.gif', writer=animation.PillowWriter(fps=15))
                 else:
                     plt.imshow(input_value[-1], cmap='gray')
+            else:
+                plt.imshow(input_value, cmap='gray')
+
         elif isinstance(input_value, tuple):
             x, y = input_value
             if "is_edge" in kwargs and kwargs["is_edge"]:
                 plt.plot(x, y)
             else:
-                if "markersize" in kwargs:
-                    if "animation_need" in kwargs and kwargs["animation_need"]:
-                        fig, ax = plt.subplots()
+                markersize = kwargs.get("markersize", 0.6)
+                if "animation_need" in kwargs and kwargs["animation_need"]:
+                    fig, ax = plt.subplots()
 
-                        ax.plot(x, y, marker='o', linestyle='', markersize=kwargs["markersize"])
+                    ax.plot(x, y, marker='o', linestyle='', markersize=markersize)
 
-                        def update(frame):
-                            frame = frame * multiplayer
-                            ax.clear()
-                            ax.plot(x[:frame], y[:frame], marker='o', linestyle='', markersize=kwargs["markersize"])
+                    def update(frame):
+                        frame = frame * multiplayer
+                        ax.clear()
+                        ax.plot(x[:frame], y[:frame], marker='o', linestyle='', markersize=markersize)
 
-                        ani = animation.FuncAnimation(fig=fig, func=update, frames=len(x)//multiplayer, interval=30*interval)
-                        if "animation_save" in kwargs and kwargs["animation_save"]:
-                            ani.save("./images/figure_" + str(add_to_name) + '.gif', writer=animation.PillowWriter(fps=15))
-                    else:
-                        plt.plot(x, y, marker='o', linestyle='', markersize=kwargs["markersize"])
+                    ani = animation.FuncAnimation(fig=fig, func=update, frames=len(x) // multiplayer, interval=30 * interval)
+                    if "animation_save" in kwargs and kwargs["animation_save"]:
+                        ani.save("./images/figure_" + str(add_to_name) + '.gif', writer=animation.PillowWriter(fps=15))
                 else:
-                    if "animation_need" in kwargs and kwargs["animation_need"]:
-                        fig, ax = plt.subplots()
+                    plt.plot(x, y, marker='o', linestyle='', markersize=markersize)
 
-                        ax.plot(x, y, marker='o', linestyle='', markersize=0.6)
+        else:  
+            fig, ax = plt.subplots(figsize=(8, 8))
 
-                        def update(frame):
-                            frame = frame * multiplayer
-                            ax.clear()
-                            ax.plot(x[:frame], y[:frame], marker='o', linestyle='', markersize=0.6)
+            cmap = plt.get_cmap('inferno')
 
-                        ani = animation.FuncAnimation(fig=fig, func=update, frames=len(x)//multiplayer, interval=30*interval)
-                        if "animation_save" in kwargs and kwargs["animation_save"]:
-                            ani.save("./images/figure_" + str(add_to_name) + '.gif', writer=animation.PillowWriter(fps=15))
-                    else:
-                        plt.plot(x, y, marker='o', linestyle='', markersize=0.6)
-        else:
-            plt.imshow(input_value, cmap='inferno', extent=[-2, 2, -2, 2], interpolation='nearest')
+            frames = []
+
+            max_iter = kwargs.get('max_iter', 100)
+
+            for i in range(max_iter):
+                frame = ax.imshow(input_value.T, cmap=cmap, vmin=0, vmax=max_iter)
+                frame.set_clim(vmin=0, vmax=i)
+                frames.append([frame])
+
+            ani = animation.ArtistAnimation(fig, frames, interval=50, blit=True, repeat_delay=1000)
+
+            if kwargs.get('save_gif', False):
+                filename = kwargs.get('filename', 'morphing.gif') # it saves fractal with its own name!! 
+                filepath = os.path.join('./images', filename)
+                writer = animation.PillowWriter(fps=30)
+                ani.save(filepath, writer=writer)
+            
+            else:
+                plt.show()
+
 
         plt.show()
 
+
+
+''' my initial draw() for morhing fractals only (in case i incorectly merged it into Maks's code for draw()'''
+    # def draw(self, iterations, max_iter=100, save_gif=False, filename='julia_set.gif'):
+    #         fig, ax = plt.subplots(figsize=(8, 8))
+
+    #         cmap = plt.get_cmap('inferno')
+
+    #         frames = []
+
+    #         for i in range(max_iter):
+    #             frame = ax.imshow(iterations.T, cmap=cmap, vmin=0, vmax=max_iter)
+    #             frame.set_clim(vmin=0, vmax=i)
+    #             frames.append([frame])
+
+    #         ani = animation.ArtistAnimation(fig, frames, interval=50, blit=True, repeat_delay=1000)
+
+    #         if save_gif:
+    #             writer = animation.PillowWriter(fps=30)
+    #             ani.save(filename, writer=writer)
+    #         else:
+    #             plt.show()
