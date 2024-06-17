@@ -84,7 +84,7 @@ class Window:
                         ax.set_ylim(y_limit_bottom, y_limit_top)
                     if not has_axes:
                         ax.axis('off')
-                    if frame > len(x)//multiplayer:
+                    if frame > len(x):
                         ax.plot(x, y, marker='o', linestyle=linestyle, markersize=markersize)
                     else:
                         ax.plot(x[:frame], y[:frame], marker='o', linestyle=linestyle, markersize=markersize)
