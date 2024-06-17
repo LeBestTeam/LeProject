@@ -33,7 +33,7 @@ class App:
         if name in self.figures:
             FigureDirector().build(self.figures[name](*args), **kwargs)
         else:
-            raise ValueError("Wrong fractal name")
+            raise ValueError("Wrong figure name")
 
 
 if __name__ == "__main__":
