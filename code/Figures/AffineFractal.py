@@ -5,16 +5,15 @@ import matplotlib.pyplot as plt
 class AffineFractal:
     """
     Build fractals using affine transformation (see compgraph Lab4)
-
-    Now there is no Animation and no cosinus and sinus
     """
     def __init__(self, list_of_lists_of_parameter: list, skip_first_n_points: int=10**2, standart_type:bool =True, *args):
         """
         Initiates affine fractal with given parameters but before checks if parameters are correct
 
         # Parameters:
-        list_of_lists_of_parameter: list with lists in it (For a,b,c,d,e,f and, if needed, p)
-        size_of_fractal: int (How many dots in fractal)
+        list_of_lists_of_parameter: list (list with lists in it (For a,b,c,d,e,f and, if needed, p))
+        skip_first_n_points: int (skip first n points of the output)
+        standart_type: bool (if true -- Decart, if false -- Polar coordinates)
         """
         if args != ():
             raise ValueError(f"Wrong number of arguments, {args} excess")
@@ -23,7 +22,6 @@ class AffineFractal:
 
         self.skip_first_n_points = skip_first_n_points
         self.standart_type = standart_type
-        # From here it is uses my representation of affine transformation (a = first list(row), b = second list(row) and others)
         if self.standart_type:
             if len(list_of_lists_of_parameter) == 7:
                 self.a, self.b, self.c, self.d, self.e, self.f, self.p = list_of_lists_of_parameter
@@ -66,9 +64,6 @@ class AffineFractal:
     def generate_points(self, iteration):
         """
         Generates dot of affine fractal on each iteration
-
-        # Updates:
-        self.axiom each iteration
         """
         result = np.array(
             [[0.0, 0.0]]*iteration
