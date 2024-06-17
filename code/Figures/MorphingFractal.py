@@ -11,7 +11,7 @@ class MorphingFractal:
         Initialize the fractal with the given parameters,  but before checks if parameters are correct
 
         # Parameters:
-        fractal_type: str - the type of fractal ('Julia', 'Mandelbrot', 'Multibrot', 'BurningShip', 'Tricorn').
+        fractal_type: str - the type of fractal ('Julia', 'Mandelbrot', 'Multibrot', "BurningShip", "Tricorn", "SinJulia", "HyperbolicTangent").
         parameter: complex or int - the parameter for the fractal (complex for Julia, int for Multibrot exponent).
         max_iterations: int - the maximum number of iterations.
         threshold: float - the threshold for fractal calculation.
