@@ -32,9 +32,6 @@ class App:
     def create_figure(self, name, *args, **kwargs):
         if name in self.figures:
             FigureDirector().build(self.figures[name](*args), **kwargs)
-    def create_figure(self, name, *args, **kwargs):
-        if name in self.figures:
-            FigureDirector().build(self.figures[name](*args), **kwargs)
         else:
             raise ValueError("Wrong fractal name")
 

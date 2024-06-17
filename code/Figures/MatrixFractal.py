@@ -95,7 +95,7 @@ if __name__ == '__main__':
         [0, 1, 0],
         [1, 0, 1],
         [0, 1, 0],
-    ])).generate_points(4), cmap='gray')
+    ])).generate_points(4)[-1], cmap='gray')
     plt.show()
     plt.imshow(MatrixFractal(np.array([
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -108,5 +108,5 @@ if __name__ == '__main__':
         [0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
         [0, 1, 1, 1, 0, 0, 1, 1, 1, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    ])).generate_points(2), cmap='gray')
+    ])).generate_points(2)[-1], cmap='gray')
     plt.show()
