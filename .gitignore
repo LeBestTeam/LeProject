@@ -3,7 +3,7 @@
 # Venv
 leproject
 .idea
-
+venv/
 # Trash
 *cache*
 *.pyc*
