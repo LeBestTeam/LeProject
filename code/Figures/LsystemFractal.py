@@ -5,8 +5,7 @@ import matplotlib.pyplot as plt
 class LsystemFractal:
     """
     Lsystem implementation of fractals (see compgraph Lab3)
-
-    Now there is no Animation and only radians
+    Only radians
     """
 
     def __init__(self, axiom: str, rules: dict, fi: float, dfi: float, *args):
@@ -16,7 +15,7 @@ class LsystemFractal:
         # Parameters:
         axiom: string (starting L-axiom)
         rules: dict (rules for how to change each letter (not specific symbol) in iteration)
-        max_iterations: int (How many iterations)
+        max_iterations: int (how many iterations)
         fi: float (starting angular) (now only radians)
         dfi: float (angular velocity) (now only radians)
         """
